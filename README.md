@@ -19,7 +19,7 @@ annotation can be edited until the admin closes the campaign.
 ## Quick start (local development)
 
 ```bash
-cd mt_eval_v2
+cd MT_Annotation
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
