@@ -1,0 +1,26 @@
+[
+  {
+    "id": "mtei_001",
+    "source": "ꯇꯥ ꯑꯂꯇꯩ ꯐꯥ ꯍꯓꯅꯇ ꯀꯥꯐꯢꯩꯏꯔꯩ ꯕꯒꯥꯏꯍꯀꯢ।",
+    "target": "Today's meeting will be held at Shri Nanda Lairiknyshu's house.",
+    "reference": "Today's meeting will be held at Shri Nandakumar's residence.",
+    "system": "System A",
+    "domain": "General"
+  },
+  {
+    "id": "mtei_002",
+    "source": "ꯒꯧꯩ ꯍꯐꯕꯁꯩꯥ ꯍꯔꯍꯅꯥ ꯙꯍꯕꯁꯔꯢ।",
+    "target": "My younger sister goes to school.",
+    "reference": "My younger sister has gone to school.",
+    "system": "System A",
+    "domain": "General"
+  },
+  {
+    "id": "mtei_003",
+    "source": "ꯕꯥꯙꯏꯥ ꯙꯥꯍꯑꯗꯍꯔ ꯑꯧꯄꯔꯙ ꯙꯥꯍ ꯙꯥꯏꯥ ꯐꯥꯂꯒꯥꯍꯋꯂ।",
+    "target": "The doctor advised to take food on time.",
+    "reference": "The doctor advised eating meals on time.",
+    "system": "System A",
+    "domain": "Medical"
+  }
+]

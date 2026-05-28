@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Admin dashboard · MT Eval{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Campaigns</h1>
+  <a href="{{ url_for('admin_campaign_new') }}" class="btn btn-primary">
+    + New campaign
+  </a>
+</div>
+
+{% if sa_email %}
+<div class="info-box">
+  <strong>Service account email:</strong>
+  <code class="code-inline">{{ sa_email }}</code>
+  <p class="hint">Share your Google Drive folder with this email (give it <em>Editor</em> access) and paste the folder URL or ID when creating a campaign.</p>
+</div>
+{% else %}
+<div class="info-box warning-box">
+  <strong>Google Drive sync is not configured.</strong>
+  <p class="hint">
+    To enable Drive sync, place a service-account JSON key at
+    <code class="code-inline">data/gdrive_sa.json</code> on the server and restart the app.
+    See the <strong>README</strong> (Google Drive setup section) for step-by-step instructions.
+  </p>
+  <p class="hint">Without this, campaigns still work — data is stored locally and downloadable as CSV per campaign.</p>
+</div>
+{% endif %}
+
+{% if campaigns %}
+<div class="campaign-grid">
+  {% for c in campaigns %}
+    {% set s = stats[c.id] %}
+    <a href="{{ url_for('admin_campaign_detail', campaign_id=c.id) }}" class="campaign-card">
+      <div class="campaign-card-head">
+        <h3>{{ c.name }}</h3>
+        {% if c.is_closed %}
+          <span class="status-pill status-closed">Closed</span>
+        {% else %}
+          <span class="status-pill status-open">Open</span>
+        {% endif %}
+      </div>
+      <p class="campaign-langs">{{ c.source_language }} → {{ c.target_language }}{% if c.script %} · {{ c.script }}{% endif %}</p>
+      <div class="campaign-stats">
+        <div><span class="stat-num">{{ c.num_segments }}</span><span class="stat-label">segments</span></div>
+        <div><span class="stat-num">{{ s.annotator_count }}</span><span class="stat-label">annotators</span></div>
+        <div><span class="stat-num">{{ s.total_ratings }}</span><span class="stat-label">ratings</span></div>
+      </div>
+      <p class="hint">Created {{ c.created_at.strftime('%Y-%m-%d') }}</p>
+    </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="card empty-state">
+  <p>No campaigns yet.</p>
+  <a href="{{ url_for('admin_campaign_new') }}" class="btn btn-primary">Create your first campaign</a>
+</div>
+{% endif %}
+
+{% endblock %}

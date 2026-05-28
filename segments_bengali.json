@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ben_001",
+    "source": "এই অহান্দা এইগি শ্রীনন্দা লৈরক্নীশু ন্তোক্কনী।",
+    "target": "Today's meeting will be held at Shri Nanda Lairiknyshu's house.",
+    "reference": "Today's meeting will be held at Shri Nandakumar's residence.",
+    "system": "System A",
+    "domain": "General"
+  },
+  {
+    "id": "ben_002",
+    "source": "ইমূং ন্ত্রুংদা স্কুলদা চত্লুরে।",
+    "target": "My younger sister goes to school.",
+    "reference": "My younger sister has gone to school.",
+    "system": "System A",
+    "domain": "General"
+  },
+  {
+    "id": "ben_003",
+    "source": "লায়না চাক্থুম্মী তুংমায় চাক চানা হাইরক্খি।",
+    "target": "The doctor advised to take food on time.",
+    "reference": "The doctor advised eating meals on time.",
+    "system": "System A",
+    "domain": "Medical"
+  },
+  {
+    "id": "ben_004",
+    "source": "এই অহান্দা এইগি শ্রীনন্দা লৈরক্নীশু ন্তোক্কনী।",
+    "target": "Today's meeting will be held at Shri Nanda Lairiknyshu's house.",
+    "reference": "Today's meeting will be held at Shri Nandakumar's residence.",
+    "system": "System A",
+    "domain": "General"
+  },
+  {
+    "id": "ben_005",
+    "source": "ইমূং ন্ত্রুংদা স্কুলদা চত্লুরে।",
+    "target": "My younger sister goes to school.",
+    "reference": "My younger sister has gone to school.",
+    "system": "System A",
+    "domain": "General"
+  },
+  {
+    "id": "ben_006",
+    "source": "লায়না চাক্থুম্মী তুংমায় চাক চানা হাইরক্খি।",
+    "target": "The doctor advised to take food on time.",
+    "reference": "The doctor advised eating meals on time.",
+    "system": "System A",
+    "domain": "Medical"
+  }
+]

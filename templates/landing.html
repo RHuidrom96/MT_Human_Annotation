@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}MT Evaluation Platform{% endblock %}
+
+{% block content %}
+<section class="card hero-card landing-hero">
+  <div class="hero-icon" aria-hidden="true">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M3 3h18v18H3z" opacity="0.3"/>
+      <path d="M7 8h10M7 12h10M7 16h6"/>
+    </svg>
+  </div>
+  <h1>MT Evaluation Platform</h1>
+  <p class="lede">
+    A platform for running human evaluation studies of machine translation.
+    Admins create campaigns and share annotation links; annotators rate
+    translations on the criteria each campaign defines and optionally mark error spans.
+  </p>
+
+  <div class="landing-actions">
+    {% if is_admin %}
+      <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary btn-large">
+        Go to admin dashboard <span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+    {% else %}
+      <a href="{{ url_for('admin_login_view') }}" class="btn btn-primary btn-large">
+        Admin sign in
+      </a>
+    {% endif %}
+  </div>
+
+  <p class="hint" style="margin-top: 1.5rem; text-align: center;">
+    Annotators: please use the link your study admin sent you.
+  </p>
+</section>
+{% endblock %}
