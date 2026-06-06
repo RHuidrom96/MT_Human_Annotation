@@ -1,3 +1,4 @@
+# models.py
 """Database models for the MT evaluation platform.
 
 There is one global admin (credentials in env vars, no DB row).

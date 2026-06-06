@@ -1,3 +1,4 @@
+# app.py
 """MT Evaluation Platform -- Flask app.
 
 Admin: env vars MT_EVAL_ADMIN_EMAIL / MT_EVAL_ADMIN_PASSWORD.
@@ -15,6 +16,11 @@ import json
 import logging
 import os
 import re
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from datetime import datetime
 from pathlib import Path
 
@@ -73,31 +79,32 @@ SCRIPT_OPTIONS = [
 ]
 
 EMAIL_RE = re.compile(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
-DRIVE_ID_RE = re.compile(r"[A-Za-z0-9_-]{20,}")
+# DRIVE_ID_RE = re.compile(r"[A-Za-z0-9_-]{20,}")
 
 
-def extract_drive_folder_id(s):
-    """Accept either a bare Drive folder ID or a full URL and return just the ID.
 
-    Examples that should all return '1zzAst9e8aC4oVofvpr10zvBPaA3BWepB':
-        1zzAst9e8aC4oVofvpr10zvBPaA3BWepB
-        https://drive.google.com/drive/folders/1zzAst9e8aC4oVofvpr10zvBPaA3BWepB
-        https://drive.google.com/drive/folders/1zzAst9e8aC4oVofvpr10zvBPaA3BWepB?usp=sharing
-        https://drive.google.com/drive/u/0/folders/1zzAst9e8aC4oVofvpr10zvBPaA3BWepB
-    """
-    s = (s or "").strip()
-    if not s:
-        return ""
-    # If it looks like a URL, pull out the segment after /folders/
-    m = re.search(r"/folders/([A-Za-z0-9_-]+)", s)
-    if m:
-        return m.group(1)
-    # Otherwise treat the whole thing as an ID if it's the right shape
-    if DRIVE_ID_RE.fullmatch(s):
-        return s
-    # Last resort: find the longest ID-shaped token
-    candidates = DRIVE_ID_RE.findall(s)
-    return max(candidates, key=len) if candidates else ""
+# def extract_drive_folder_id(s):
+#     """Accept either a bare Drive folder ID or a full URL and return just the ID.
+
+#     Examples that should all return '1zzAst9e8aC4oVofvpr10zvBPaA3BWepB':
+#         1zzAst9e8aC4oVofvpr10zvBPaA3BWepB
+#         https://drive.google.com/drive/folders/1zzAst9e8aC4oVofvpr10zvBPaA3BWepB
+#         https://drive.google.com/drive/folders/1zzAst9e8aC4oVofvpr10zvBPaA3BWepB?usp=sharing
+#         https://drive.google.com/drive/u/0/folders/1zzAst9e8aC4oVofvpr10zvBPaA3BWepB
+#     """
+#     s = (s or "").strip()
+#     if not s:
+#         return ""
+#     # If it looks like a URL, pull out the segment after /folders/
+#     m = re.search(r"/folders/([A-Za-z0-9_-]+)", s)
+#     if m:
+#         return m.group(1)
+#     # Otherwise treat the whole thing as an ID if it's the right shape
+#     if DRIVE_ID_RE.fullmatch(s):
+#         return s
+#     # Last resort: find the longest ID-shaped token
+#     candidates = DRIVE_ID_RE.findall(s)
+#     return max(candidates, key=len) if candidates else ""
 
 # -- App setup ----------------------------------------------------------------
 app = Flask(__name__)
@@ -128,19 +135,6 @@ app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB upload cap
 db.init_app(app)
 with app.app_context():
     db.create_all()
-    # One-time cleanup: if any existing campaigns have a URL stored where the
-    # ID should be, extract the ID. Idempotent.
-    try:
-        for _c in Campaign.query.all():
-            if _c.drive_folder_id:
-                cleaned = extract_drive_folder_id(_c.drive_folder_id)
-                if cleaned and cleaned != _c.drive_folder_id:
-                    logger.info("Migrating campaign %s: drive_folder_id %r -> %r",
-                                _c.id, _c.drive_folder_id, cleaned)
-                    _c.drive_folder_id = cleaned
-        db.session.commit()
-    except Exception:
-        logger.exception("drive_folder_id cleanup at startup failed")
 
 
 @app.context_processor
@@ -216,7 +210,6 @@ def admin_campaign_new():
         source_language = request.form.get("source_language", "").strip()
         target_language = request.form.get("target_language", "").strip()
         script = request.form.get("script", "").strip() or None
-        drive_folder_id = extract_drive_folder_id(request.form.get("drive_folder_id", ""))
         instructions = request.form.get("instructions", "").strip()
         span_scope = request.form.get("span_scope", "").strip()
         enable_spans = request.form.get("enable_spans") == "on"
@@ -309,7 +302,6 @@ def admin_campaign_new():
             return _render_new_campaign_form(
                 form_data={"name": name, "source_language": source_language,
                            "target_language": target_language, "script": script or "",
-                           "drive_folder_id": drive_folder_id,
                            "instructions": instructions,
                            "enable_spans": enable_spans,
                            "span_scope": span_scope,
@@ -326,7 +318,6 @@ def admin_campaign_new():
             instructions=instructions,
             enable_spans=enable_spans,
             span_scope=span_scope,
-            drive_folder_id=drive_folder_id,
         )
         db.session.add(c)
         db.session.commit()
