@@ -1,16 +1,77 @@
+/* ============================
+   SaaS POLISH LAYER
+   ============================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* Smooth component transitions */
+.card,
+.segment-card,
+.criterion,
+.site-header,
+.modal,
+.btn,
+.likert-circle,
+.script-card {
+  transition: all 0.18s ease;
+}
+
+/* Hover elevation system (SaaS feel) */
+.card:hover,
+.segment-card:hover,
+.criterion:hover,
+.campaign-card:hover,
+.ann-campaign-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+/* Better focus system (accessibility + polish) */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Softer typography rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, .btn {
+  letter-spacing: 0.2px;
+}
+
+.site-header {
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+}
+
 /* ============================================================
    MT Evaluation — friendly, accessible styling
    ============================================================ */
 
 :root {
-  --bg:           #f7f6f3;
+  --bg:           #ffffff;
   --surface:      #ffffff;
   --surface-2:    #f1efea;
-  --border:       rgba(0, 0, 0, 0.08);
+  --border:       #e0e0e0;;
   --border-2:     rgba(0, 0, 0, 0.14);
-  --text:         #2c2c2a;
+  --text:         #111111;
   --text-muted:   #5f5e5a;
   --text-faint:   #888780;
+  --primary:      #2d6cdf;
+  --card:         #f5f5f5;
 
   --accent:       #4a6fd6;
   --accent-soft:  #e8eefb;
@@ -35,6 +96,83 @@
 
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
           Cantarell, "Helvetica Neue", Arial, sans-serif;
+
+  /* Semantic tokens for hardcoded colors — overridden in dark theme below */
+  --error-bg:         #fcebeb;
+  --error-text:       #791f1f;
+  --error-border:     #e24b4a;
+  --error-signout:    #c4444a;
+  --code-bg:          rgba(0,0,0,0.06);
+  --crit-defs-bg:     rgba(255,255,255,0.55);
+  --legend-item-bg:   rgba(255,255,255,0.6);
+  --modal-overlay:    rgba(0,0,0,0.4);
+}
+
+/* ============================================================
+   DARK THEME  — complete token overrides
+   ============================================================ */
+[data-theme="dark"] {
+  --bg:         #0b0f14;
+  --surface:    #121824;
+  --surface-2:  #171f2e;
+  --card:       #121824;
+
+  --border:     rgba(255, 255, 255, 0.06);
+  --border-2:   rgba(255, 255, 255, 0.10);
+
+  --text:       #e8ecf1;
+  --text-muted: #aab3c0;
+  --text-faint: #7b8594;
+
+  --accent:       #5b8cff;
+  --accent-dark:  #3f6fe0;
+  --accent-soft:  rgba(91, 140, 255, 0.12);
+
+  --success-soft: rgba(29, 158, 117, 0.12);
+  --warning-soft: rgba(186, 117, 23, 0.12);
+
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.35);
+  --shadow:    0 6px 20px rgba(0,0,0,0.45);
+
+  /* Semantic overrides */
+  --error-bg:       rgba(196, 68, 74, 0.15);
+  --error-text:     #f4a0a3;
+  --error-border:   #e24b4a;
+  --error-signout:  #f4a0a3;
+  --code-bg:        rgba(255,255,255,0.08);
+  --crit-defs-bg:   rgba(255,255,255,0.05);
+  --legend-item-bg: rgba(255,255,255,0.07);
+  --modal-overlay:  rgba(0,0,0,0.65);
+}
+
+/* System preference fallback (when no explicit choice is saved) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --bg:         #0b0f14;
+    --surface:    #121824;
+    --surface-2:  #171f2e;
+    --card:       #121824;
+    --border:     rgba(255, 255, 255, 0.06);
+    --border-2:   rgba(255, 255, 255, 0.10);
+    --text:       #e8ecf1;
+    --text-muted: #aab3c0;
+    --text-faint: #7b8594;
+    --accent:       #5b8cff;
+    --accent-dark:  #3f6fe0;
+    --accent-soft:  rgba(91, 140, 255, 0.12);
+    --success-soft: rgba(29, 158, 117, 0.12);
+    --warning-soft: rgba(186, 117, 23, 0.12);
+    --shadow-sm: 0 2px 6px rgba(0,0,0,0.35);
+    --shadow:    0 6px 20px rgba(0,0,0,0.45);
+    --error-bg:       rgba(196, 68, 74, 0.15);
+    --error-text:     #f4a0a3;
+    --error-border:   #e24b4a;
+    --error-signout:  #f4a0a3;
+    --code-bg:        rgba(255,255,255,0.08);
+    --crit-defs-bg:   rgba(255,255,255,0.05);
+    --legend-item-bg: rgba(255,255,255,0.07);
+    --modal-overlay:  rgba(0,0,0,0.65);
+  }
 }
 
 * { box-sizing: border-box; }
@@ -67,8 +205,8 @@ html, body {
 
 /* ============== Hero card (registration & done) ============== */
 .card {
-  background: var(--surface);
-  border: 0.5px solid var(--border);
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   padding: 32px 28px;
@@ -202,6 +340,7 @@ h3 {
   background: var(--surface-2);
   border-radius: var(--radius-sm);
 }
+
 .checkbox-row {
   display: flex;
   gap: 10px;
@@ -331,13 +470,13 @@ h3 {
 
 /* ============== Error messages ============== */
 .error-msg {
-  background: #fcebeb;
-  color: #791f1f;
+  background: var(--error-bg);
+  color: var(--error-text);
   padding: 10px 12px;
   border-radius: var(--radius-sm);
   font-size: 13px;
   margin: 12px 0;
-  border-left: 3px solid #e24b4a;
+  border-left: 3px solid var(--error-border);
 }
 
 /* ============== Top bar (rating screen) ============== */
@@ -454,7 +593,7 @@ h3 {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255,255,255,0.6);
+  background: var(--legend-item-bg);
   padding: 4px 10px 4px 4px;
   border-radius: 999px;
   font-size: 12px;
@@ -564,7 +703,7 @@ h3 {
   gap: 6px;
   margin: 8px 0 10px;
   padding: 10px 12px;
-  background: rgba(255,255,255,0.55);
+  background: var(--crit-defs-bg);
   border-radius: var(--radius-sm);
 }
 .crit-def {
@@ -1002,7 +1141,7 @@ h3 {
   min-height: 18px;
 }
 .save-status.success { color: var(--success); }
-.save-status.error { color: #c44; }
+.save-status.error { color: var(--error-text); }
 
 /* ============== Done screen ============== */
 .done-card { text-align: center; }
@@ -1085,9 +1224,9 @@ h3 {
   font-size: 13px;
   border-left: 3px solid;
 }
-.flash-info    { background: var(--accent-soft);  border-left-color: var(--accent);  color: var(--accent-dark); }
-.flash-success { background: var(--success-soft); border-left-color: var(--success); color: #0a6044; }
-.flash-error   { background: #fcebeb;             border-left-color: #e24b4a;        color: #791f1f; }
+.flash-info    { background: var(--accent-soft);  border-left-color: var(--accent);        color: var(--accent-dark); }
+.flash-success { background: var(--success-soft); border-left-color: var(--success);       color: #0a6044; }
+.flash-error   { background: var(--error-bg);     border-left-color: var(--error-border);  color: var(--error-text); }
 
 /* Page header */
 .page-header {
@@ -1115,7 +1254,7 @@ h3 {
 }
 .info-box .hint { margin-top: 4px; }
 .code-inline {
-  background: rgba(0,0,0,0.06);
+  background: var(--code-bg);
   padding: 1px 6px;
   border-radius: 3px;
   font-size: 12px;
@@ -1344,7 +1483,7 @@ select:focus,
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: var(--modal-overlay);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1450,7 +1589,7 @@ select:focus,
   line-height: 1;
   flex-shrink: 0;
 }
-.btn-remove-row:hover { background: #fcebeb; color: #c4444a; border-color: #e2a0a0; }
+.btn-remove-row:hover { background: var(--error-bg); color: var(--error-signout); border-color: var(--error-border); }
 
 /* Radio group */
 .radio-group { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
@@ -1476,7 +1615,7 @@ select:focus,
   font-size: 13px;
 }
 .sync-ok { background: var(--success-soft); color: #0a6044; }
-.sync-err { background: #fcebeb; color: #791f1f; }
+.sync-err { background: var(--error-bg); color: var(--error-text); }
 .sync-err-detail {
   font-family: ui-monospace, Menlo, Consolas, monospace;
   font-size: 11px;
@@ -1694,10 +1833,10 @@ select:focus,
   flex-shrink: 0;
 }
 .avatar-dropdown-signout {
-  color: #c4444a;
+  color: var(--error-signout);
 }
 .avatar-dropdown-signout svg {
-  color: #c4444a;
+  color: var(--error-signout);
 }
 
 /* Instructions panel subheads */
@@ -1716,8 +1855,6 @@ select:focus,
    full-width span annotation below each segment.
    ============================================================ */
 
-/* Segment cards and the instructions panel share the same width
-   (the standard #app container, ~880px). */
 .progress-sub {
   color: var(--text-faint);
   font-weight: 400;
@@ -1886,3 +2023,34 @@ select:focus,
   margin-left: 6px;
   white-space: nowrap;
 }
+
+/* ============================================================
+   Theme toggle button
+   ============================================================ */
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 0.5px solid var(--border-2);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+  flex-shrink: 0;
+  padding: 0;
+}
+.theme-toggle-btn:hover {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--text-faint);
+}
+
+/* Show sun icon in dark mode, moon icon in light mode */
+.theme-toggle-btn .icon-sun  { display: none; }
+.theme-toggle-btn .icon-moon { display: block; }
+
+[data-theme="dark"] .theme-toggle-btn .icon-sun  { display: block; }
+[data-theme="dark"] .theme-toggle-btn .icon-moon { display: none; }
